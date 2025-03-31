@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, StyleSheet, Text, SafeAreaView, ScrollView } from "react-native";
+import { View, StyleSheet,  SafeAreaView, ScrollView } from "react-native";
 import Header from "../../components/Header";
 import SubHeader from "../../components/SubHeader";
 import videos from "../../dummy/videos.json"
@@ -8,7 +8,7 @@ import Card from "../../components/Card";
 class Index extends Component {
   render() {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} testID="home-screen">
         <View style={styles.body}>
           <ScrollView>
             <Header />

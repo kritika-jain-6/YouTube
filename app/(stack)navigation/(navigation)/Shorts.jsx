@@ -1,13 +1,15 @@
-import React, { Component } from "react";
-import {View, StyleSheet, Text, SafeAreaView} from "react-native";
+import React, { Component, createRef } from "react";
+import { StyleSheet, SafeAreaView } from "react-native";
 
 
 class Shorts extends Component {
+    
+
     render() {
         return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={styles.container} testID="shorts-screen">
             </SafeAreaView>
-        )
+        );
     }
 }
 

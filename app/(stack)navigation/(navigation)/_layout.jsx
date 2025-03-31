@@ -17,8 +17,10 @@ class RootLayout extends Component {
                     name="index"
                     options={{
                         title: "Home",
+                        tabBarAccessibilityLabel: "HomeButton",
                         tabBarIcon: ({ focused }) => (
                             <Ionicons
+                            testID="home-icon"                               
                                 name={focused ? "home-sharp" : "home-outline"}
                                 color={"#333"}
                                 size={25}
@@ -30,8 +32,10 @@ class RootLayout extends Component {
                     name="Shorts"
                     options={{
                         title: "Shorts",
+                        tabBarAccessibilityLabel: "ShortButton",
                         tabBarIcon: ({ focused }) => (
                             <Image
+                             testID="shorts-icon"
                                 style={styles.icon}
                                 source={
                                     focused
@@ -42,12 +46,31 @@ class RootLayout extends Component {
                         ),
                     }}
                 />
+                 <Tabs.Screen
+                    name="Upload"
+                    options={{
+                        title: "Upload",
+                        tabBarAccessibilityLabel: "UploadButton",
+                        tabBarIcon: ({ focused }) => (
+                            <Ionicons
+                            testID="upload-icon"
+                                name={focused ? "add-circle" : "add-circle-outline"}
+                                color={"#333"}
+                                size={25}
+                            />
+                        ), 
+                    }}
+                />
+
+                
                 <Tabs.Screen
                     name="Subscription"
                     options={{
                         title: "Subscription",
+                        tabBarAccessibilityLabel: "SubscriptionButton",
                         tabBarIcon: ({ focused }) => (
                             <Image
+                            testID="subscription-icon"
                                 style={styles.icon}
                                 source={
                                     focused
@@ -62,8 +85,10 @@ class RootLayout extends Component {
                     name="Profile"
                     options={{
                         title: "Profile",
+                        tabBarAccessibilityLabel: "ProfileButton",
                         tabBarIcon: ({ focused }) => (
                             <Ionicons
+                            testID="profile-icon"
                                 name={focused ? "person" : "person-outline"}
                                 color={"#333"}
                                 size={25}

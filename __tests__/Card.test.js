@@ -6,12 +6,32 @@ import videoData  from "../app/dummy/videos.json";
 describe("Card Component", () => {
     it("renders the Card component correctly", () => {
         const mockVideo = videoData[0];        
-        const { getByText, getByTestId } = render(<Card video={mockVideo} />);     
-       
+        const { getByText } = render(<Card video={mockVideo} />);   
         expect(getByText(mockVideo.title)).toBeTruthy();
-        expect(getByText(mockVideo.userName)).toBeTruthy();       
+    });
+
+    it("renders the Card component correctly", () => {
+        const mockVideo = videoData[0];        
+        const { getByText } = render(<Card video={mockVideo} />);   
+        expect(getByText(mockVideo.userName)).toBeTruthy();            
+    });
+
+    it("renders the Card component correctly", () => {
+        const mockVideo = videoData[0];        
+        const { getByText } = render(<Card video={mockVideo} />);         
         expect(getByText(`${mockVideo.views} views • ${mockVideo.createdTime}`)).toBeTruthy();        
+    
+    });
+
+    it("renders the Card component correctly", () => {
+        const mockVideo = videoData[0];        
+        const {getByTestId } = render(<Card video={mockVideo} />);          
         expect(getByTestId("video-thumbnail")).toBeTruthy();
+    });
+
+    it("renders the Card component correctly", () => {
+        const mockVideo = videoData[0];        
+        const {getByTestId } = render(<Card video={mockVideo} />);          
         expect(getByTestId("user-profile")).toBeTruthy();
     });
 });

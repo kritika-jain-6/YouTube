@@ -5,7 +5,7 @@ import Header from "../../components/Header";
 class Profile extends Component {
     render() {
         return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={styles.container} testID="profile-screen">
                 <Header/>
                 
             </SafeAreaView>

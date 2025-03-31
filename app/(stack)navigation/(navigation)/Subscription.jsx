@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import {View, StyleSheet, Text, SafeAreaView} from "react-native";
+import { StyleSheet, SafeAreaView} from "react-native";
 import Header from "../../components/Header";
-import SubHeader from '../../components/SubHeader'
+
 
 class Subscription extends Component {
     render() {
         return (
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={styles.container} testID="subscription-screen">
                 <Header/>
-                <SubHeader/>
+               
             </SafeAreaView>
         )
     }

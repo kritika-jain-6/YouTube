@@ -20,26 +20,18 @@ describe("SubHeader Component", () => {
       "Posts",
       "Recently Upload",
     ];
-
     const { getByTestId } = render(<SubHeader />);
-
     categories.forEach((category) => {
       expect(getByTestId(`category-button-${category}`)).toBeTruthy();
     });
   });
+  
 
   it("changes button style when clicked", () => {
     const { getByTestId } = render(<SubHeader />);
-
     const categoryButton = getByTestId("category-button-Gaming");
-
-    // Before clicking, it should have default styles
     expect(categoryButton.props.style.backgroundColor).toBe("#f1f1f1");
-
-    // Click the button
     fireEvent.press(categoryButton);
-
-    // After clicking, it should have the active styles
     expect(categoryButton.props.style.backgroundColor).toBe("#000000");
   });
 });
