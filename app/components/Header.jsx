@@ -7,8 +7,9 @@ import {
   SafeAreaView,
 } from "react-native";
 import Feather from "@expo/vector-icons/Feather";
+import Ionicons from "@expo/vector-icons/Ionicons"; // ✅ Add Ionicons import
 import { withNavigationHOC } from "../withNavigationHOC";
-import { router } from "expo-router";
+import PropTypes from "prop-types"; // Import PropTypes
 
 class Header extends Component {
   handleSearchPress = () => {
@@ -20,14 +21,14 @@ class Header extends Component {
   };
 
   render() {
-    const { onCastPress, navigation,route } = this.props;
+    const { onCastPress, navigation, route } = this.props;
     const isNotificationScreen = route?.name === "NotificationScreen";
+
     return (
       <SafeAreaView testID="header-container" style={styles.container}>
-  
-  {isNotificationScreen ? (
+        {isNotificationScreen ? (
           <View style={styles.notificationHeader}>
-            <TouchableOpacity onPress={() => navigation.back()}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
               <Ionicons name="arrow-back" size={24} color="black" />
             </TouchableOpacity>
             <Text style={styles.notificationText}>Notifications</Text>
@@ -42,25 +43,13 @@ class Header extends Component {
         )}
 
         <View style={styles.btns}>
-          <TouchableOpacity
-            testID="cast-btn"
-            style={styles.btn}
-            onPress={onCastPress}
-          >
+          <TouchableOpacity testID="cast-btn" style={styles.btn} onPress={onCastPress}>
             <Feather name="cast" size={22} color={"#555"} />
           </TouchableOpacity>
-          <TouchableOpacity
-            testID="bell-btn"
-            style={styles.btn}
-            onPress={this.handleBellPress}
-          >
+          <TouchableOpacity testID="bell-btn" style={styles.btn} onPress={this.handleBellPress}>
             <Feather name="bell" size={22} color={"#555"} />
           </TouchableOpacity>
-          <TouchableOpacity
-            testID="search-btn"
-            style={styles.btn}
-            onPress={this.handleSearchPress}
-          >
+          <TouchableOpacity testID="search-btn" style={styles.btn} onPress={this.handleSearchPress}>
             <Feather name="search" size={22} color={"#555"} />
           </TouchableOpacity>
         </View>
@@ -69,7 +58,26 @@ class Header extends Component {
   }
 }
 
+
+Header.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+    goBack: PropTypes.func.isRequired, 
+  }).isRequired,
+  route: PropTypes.shape({
+    name: PropTypes.string,
+  }),
+  onCastPress: PropTypes.func,
+};
+
+
+Header.defaultProps = {
+  route: {},
+  onCastPress: () => {},
+};
+
 export default withNavigationHOC(Header);
+
 
 const styles = StyleSheet.create({
   container: {

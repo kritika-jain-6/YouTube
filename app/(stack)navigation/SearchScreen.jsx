@@ -1,61 +1,54 @@
-import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
-import videos from '../dummy/videos.json';
+import React, { Component } from "react";
+import { View, TextInput, Text, FlatList ,StyleSheet} from "react-native";
+const videos = require("../dummy/videos.json");
 
-class SearchHeader extends Component {
+
+class SearchScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filteredData: videos || [], // Ensure default empty array if videos.json is empty
-      searchText: '',
+      searchTerm: "",
     };
   }
 
-  // Update search results
   handleSearch = (text) => {
-    const trimmedText = text.trim();
-    this.setState({ searchText: text });
+    this.setState({ searchTerm: text });
+  };
 
-    if (trimmedText.length > 0) {
-      const newData = videos.filter((item) =>
-        item.title?.toLowerCase().includes(trimmedText.toLowerCase())
-      );
-      this.setState({ filteredData: newData });
-    } else {
-      this.setState({ filteredData: videos });
-    }
+  getFilteredVideos = () => {
+    const { searchTerm } = this.state;
+    return videos.filter((video) =>
+      video.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
   };
 
   render() {
-    const { filteredData, searchText } = this.state;
+    const filteredVideos = this.getFilteredVideos();
 
     return (
-      <View testID="search-container" style={styles.container}>
-        {/* Search Input */}
+      <View testID="search-container">
         <TextInput
           testID="search-input"
-          style={styles.searchInput}
           placeholder="Search videos..."
-          value={searchText}
+          value={this.state.searchTerm}
           onChangeText={this.handleSearch}
         />
-
-        {/* Display "Videos Not Found" if no results */}
-        {filteredData.length === 0 ? (
-          <Text testID="not-found-text" style={styles.notFoundText}>Videos not found</Text>
+        {filteredVideos.length > 0 ? (
+          <FlatList
+            data={filteredVideos}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => <Text>{item.title}</Text>}
+          />
         ) : (
-          <View testID="video-list" style={styles.listContainer}>
-            {filteredData.map((item, index) => (
-              <View testID={`video-item-${index}`} key={index.toString()} style={styles.itemContainer}>
-                <Text style={styles.item}>{item.title}</Text>
-              </View>
-            ))}
-          </View>
+          <Text testID="not-found-text">Videos not found</Text>
         )}
       </View>
     );
   }
 }
+
+export default SearchScreen;
+
 
 const styles = StyleSheet.create({
   container: {
@@ -97,4 +90,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchHeader;
+

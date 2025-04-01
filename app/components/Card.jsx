@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, Image, StyleSheet, Dimensions } from "react-native";
-
+import PropTypes from "prop-types"; // Import PropTypes for type checking
 const screenWidth = Dimensions.get("window").width;
 
 class Card extends Component {
@@ -48,6 +48,18 @@ class Card extends Component {
         );
     }
 }
+
+Card.propTypes = {
+    video: PropTypes.shape({
+        thumbnail: PropTypes.string.isRequired,
+        videoLength: PropTypes.string.isRequired,
+        userProfile: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        userName: PropTypes.string.isRequired,
+        views: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        createdTime: PropTypes.string.isRequired,
+    }).isRequired,
+};
 
 const styles = StyleSheet.create({
     card: {

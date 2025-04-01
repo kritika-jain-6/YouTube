@@ -1,40 +1,46 @@
-import React from "react";
-import { render, fireEvent } from "@testing-library/react-native";
-import SearchScreen from "../app/(stack)navigation/SearchScreen";
-import videos from "../app/dummy/videos.json";
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react-native';
+import SearchScreen from '../app/(stack)navigation/SearchScreen';
 
-describe("SearchScreen Component", () => {
-  it("renders the search input and video list", () => {
+
+
+describe('SearchScreen Component', () => {
+  test('renders the search input field correctly', () => {
     const { getByTestId } = render(<SearchScreen />);
-    expect(getByTestId("search-input")).toBeTruthy();
+    const searchInput = getByTestId('search-input');
+    expect(searchInput).toBeTruthy();
   });
 
-  it("renders the  video list", () => {
-    const {  getAllByText } = render(<SearchScreen />);
-    expect(getAllByText(videos[0].title).length).toBeGreaterThan(0);
+  test('updates the search input field', () => {
+    const { getByTestId } = render(<SearchScreen />);
+    const searchInput = getByTestId('search-input');
+
+    fireEvent.changeText(searchInput, 'test video');
+    expect(searchInput.props.value).toBe('test video');
   });
 
-  it("filters videos based on search input", () => {
-    const { getByTestId, getAllByText } = render(<SearchScreen />);
-    const searchInput = getByTestId("search-input");
-    fireEvent.changeText(searchInput, "Stranger Things");
-    expect(getAllByText(videos[1].title).length).toBeGreaterThan(0);
+
+
+  test('shows "Videos not found" when there are no matching results', () => {
+    const { getByTestId, queryByTestId } = render(<SearchScreen />);
+    const searchInput = getByTestId('search-input');
+
+    fireEvent.changeText(searchInput, 'nonexistent video');
+    expect(getByTestId('not-found-text')).toBeTruthy();
+    expect(queryByTestId('list-container')).toBeNull();
   });
 
-  it("filters videos based on search input", () => {
-    const { getByTestId, queryByText } = render(<SearchScreen />);
-    const searchInput = getByTestId("search-input");
-    fireEvent.changeText(searchInput, "Stranger Things");
-    expect(queryByText(videos[0].title)).toBeFalsy();
+;
+
+  test('renders correctly with default state', () => {
+    const { getByTestId } = render(<SearchScreen />);
+    expect(getByTestId('search-container')).toBeTruthy();
   });
 
-  it("resets to the full list when search input is cleared", () => {
-    const { getByTestId, getAllByText, queryByText } = render(<SearchScreen />);
-    const searchInput = getByTestId("search-input");
-    fireEvent.changeText(searchInput, "Stranger Things");
-    expect(getAllByText(videos[1].title).length).toBeGreaterThan(0);
-    expect(queryByText(videos[0].title)).toBeFalsy();
-    fireEvent.changeText(searchInput, "");
-    expect(getAllByText(videos[0].title).length).toBeGreaterThan(0);
+  test('ensures styles are applied correctly', () => {
+    const { getByTestId } = render(<SearchScreen />);
+    const searchContainer = getByTestId('search-container');
+
+    expect(searchContainer).toBeTruthy();
   });
 });

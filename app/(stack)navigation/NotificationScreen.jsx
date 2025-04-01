@@ -2,6 +2,7 @@ import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from "react
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router"; 
 import notificationsData from "../dummy/videos.json";
+import PropTypes from "prop-types"; 
 
 const NotificationItem = ({ notification }) => {
   return (
@@ -14,6 +15,16 @@ const NotificationItem = ({ notification }) => {
       </View>
     </View>
   );
+};
+
+NotificationItem.propTypes = {
+  notification: PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    thumbnail: PropTypes.string.isRequired,
+    userName: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    createdTime: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 const NotificationsScreen = () => {
